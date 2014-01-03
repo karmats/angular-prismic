@@ -75,9 +75,13 @@ module.exports = function (grunt) {
     ]);
 
     grunt.registerTask('release', [
+        'package',
+        'bump'
+    ]);
+
+    grunt.registerTask('package', [
         'test',
         'build',
-        'bump',
         'changelog'
     ]);
 
