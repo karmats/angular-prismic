@@ -1,7 +1,9 @@
 angular-prismic [![Build Status](https://travis-ci.org/kennethlynne/angular-prismic.png?branch=master)](https://travis-ci.org/kennethlynne/angular-prismic)
 ===============
+**Work in progress. Feel free to contribute with pull requests and feature requests.**
 
-Prismic.io Angular service
+Prismic.io Angular provider to abstract prismic.io API interaction.
+It is tested, it uses promises for all interaction with the API and it uses `$http` behind the scenes, allowing you to provide mock data, test and interact in a familiar way.
 
 * Web site: http://prismic.io
 * Tutorial: https://developers.prismic.io/technologies/UjBh28uvzeMJvE4i/javascript
