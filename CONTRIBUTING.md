@@ -5,8 +5,7 @@ today! Here are the guidelines we'd like you to follow:
 
 ## Got a Question or Problem?
 
-If you have questions about how to use angular-prismic, please direct these to the [Google Group][groups]
-discussion list or [StackOverflow][stackoverflow]. We are also available on [IRC][irc].
+If you have questions about how to use angular-prismic, direct these to [@kennethlynne](https://twitter.com/kennethlynne) or [StackOverflow][stackoverflow].
 
 ## Found an Issue?
 If you find a bug in the source code or a mistake in the documentation, you can help us by
@@ -21,7 +20,7 @@ would like to implement a new feature then consider what kind of change it is:
 
 ## Want a Doc Fix?
 If you want to help improve the docs, it's a good idea to let others know what you're working on to 
-minimize duplication of effort. Before starting, check out the issue queue for [Milestone:Docs Only](https://github.com/angular/angular.js/issues?milestone=24&state=open). 
+minimize duplication of effort. Before starting, check out the issue queue for [Milestone:Documentation](https://github.com/kennethlynne/angular-prismic/issues?milestone=1&state=open).
 Comment on an issue to let others know what you're working on, or create a new issue if your work
 doesn't fit within the scope of any of the existing doc fix projects.
 
@@ -89,7 +88,7 @@ Before you submit your pull request consider the following guidelines:
     git push origin my-fix-branch
     ```
 
-* In Github, send a pull request to `angular:master`.
+* In Github, send a pull request to `angular-pismic:master`.
 * If we suggest changes then you can modify your branch, rebase and force a new push to your GitHub
   repository to update the Pull Request:
 
@@ -126,14 +125,6 @@ from the main (upstream) repository:
     ```shell
     git pull --ff upstream master
     ```
-
-### GitHub Pull Request Helper
-
-We track Pull Requests by attaching labels and assigning to milestones.  For some reason GitHub
-does not provide a good UI for managing labels on Pull Requests (unlike Issues).  We have developed
-a simple Chrome Extension that enables you to view (and manage if you have permission) the labels
-on Pull Requests.  You can get the extension from the Chrome WebStore -
-[GitHub PR Helper][github-pr-helper]
 
 ## Coding Rules
 To ensure consistency throughout the source code, keep these rules in mind as you are working:
@@ -214,6 +205,5 @@ A detailed explanation can be found in this [document][commit-message-format].
 [jsfiddle]: http://jsfiddle.net/
 [js-style-guide]: http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml
 [commit-message-format]: https://docs.google.com/document/d/1QrDFcIiPjSLDn3EL15IJygNPiHORgU1_OOAqWjiDU5Y/edit#
-[github-pr-helper]: https://chrome.google.com/webstore/detail/github-pr-helper/mokbklfnaddkkbolfldepnkfmanfhpen
 
 [![Analytics](https://ga-beacon.appspot.com/UA-46835353-1/angular-prismic/CONTRIBUTING)](https://github.com/igrigorik/ga-beacon)
