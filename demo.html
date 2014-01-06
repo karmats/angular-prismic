@@ -2,6 +2,10 @@
 <html ng-app="DemoApp">
 <head>
     <title>Prismic.IO demo</title>
+
+    <script src="bower_components/prismic.io/dist/prismic.io.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="angular-prismic.src.js"></script>
 </head>
 <body>
 
@@ -10,10 +14,6 @@
     {{message}}
 </div>
 
-
-<script src="bower_components/prismic.io/dist/prismic.io.js"></script>
-<script src="bower_components/angular/angular.js"></script>
-<script src="angular-prismic.src.js"></script>
 
 <script>
     var DemoApp = angular.module('DemoApp', ['prismic.io']);
@@ -31,8 +31,10 @@
             .controller('DemoCtrl', function ($scope, Prismic) {
                 $scope.message = "Running";
 
-                Prismic.form("everything").ref(ctx.ref).submit(function(docs) {
-                    console.log(docs);
+                Prismic.get(function (ctx) {
+                    ctx.api.form("everything").ref(ctx.ref).submit(function(docs) {
+                        console.log(docs);
+                    })
                 });
 
             });
