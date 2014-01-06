@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html ng-app="DemoApp">
+<head>
+    <title>Prismic.IO demo</title>
+</head>
+<body>
+
+<div class="demo" ng-controller="DemoCtrl">
+
+    {{message}}
+</div>
+
+
+<script src="bower_components/prismic.io/dist/prismic.io.js"></script>
+<script src="bower_components/angular/angular.js"></script>
+<script src="angular-prismic.src.js"></script>
+
+<script>
+    var DemoApp = angular.module('DemoApp', ['prismic.io']);
+
+    DemoApp
+            .config(function (PrismicProvider) {
+
+            })
+            .run(function (Prismic) {
+                Prismic.setAPIEndpoint('https://lesbonneschoses-ulwh5lo531gahg7x.prismic.io/api');
+                Prismic.setAccessToken('MC5Vc3A2MlFFQUFONnJwYnAy.Iw3vv712fxFlbgXvv71sHkNF77-977-9eTrvv73vv71477-977-9Ue-_ve-_vVXvv73vv73vv73vv73vv70');
+                Prismic.setClientId('Usp62QEAAMKrpbp1');
+                Prismic.setClientSecret('dcdb92123281f6cfae808132b4ac19a7');
+            })
+            .controller('DemoCtrl', function ($scope, Prismic) {
+                $scope.message = "Running";
+
+                Prismic.form("everything").ref(ctx.ref).submit(function(docs) {
+                    console.log(docs);
+                });
+
+            });
+
+</script>
+
+</body>
+</html>
