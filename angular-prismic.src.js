@@ -1,9 +1,17 @@
 angular.module('prismic.io', [])
+    .factory('PrismicRequestHandler', function () {
+        return function requestHandler(url, cb) {
+            $http.get(url).then(function (response) {
+                cb(response.data);
+            });
+        };
+    })
     .provider('Prismic', function(){
 
-        var PrismicBackend = window.Prismic;
+        this.$get = function ($http, $window, PrismicRequestHandler) {
 
-        this.$get = function ($http) {
+            var requestHandler = PrismicRequestHandler;
+            var PrismicBackend = $window.Prismic;
 
             var _accessToken = '',
                 _setAccessToken = function setAccessToken(token) {
@@ -25,10 +33,7 @@ angular.module('prismic.io', [])
                     _APIEndpoint = endpoint;
                 };
 
-
             ///////////
-
-
 
             var parseQS = function(query) {
                 var params = {},
@@ -40,15 +45,6 @@ angular.module('prismic.io', [])
                     params[decode(match[1])] = decode(match[2]);
                 }
                 return params;
-            };
-
-            var requestHandler = function (url, cb) {
-                console.log(Array.prototype.slice.call(arguments));
-
-                $http.get(url).then(function (response) {
-                    console.log(response);
-                    cb(response.data);
-                });
             };
 
             var getApiHome = function(callback) {
