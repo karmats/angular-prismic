@@ -25,9 +25,6 @@
     var DemoApp = angular.module('DemoApp', ['prismic.io']);
 
     DemoApp
-            .config(function (PrismicProvider) {
-
-            })
             .run(function (Prismic) {
                 Prismic.setAPIEndpoint('https://lesbonneschoses-ulwh5lo531gahg7x.prismic.io/api');
                 Prismic.setAccessToken('MC5Vc3A2MlFFQUFONnJwYnAy.Iw3vv712fxFlbgXvv71sHkNF77-977-9eTrvv73vv71477-977-9Ue-_ve-_vVXvv73vv73vv73vv73vv70');
@@ -41,7 +38,6 @@
                     ctx.api.form("everything").ref(ctx.ref).submit(function(docs) {
                         $scope.status = "Loaded";
                         $scope.data = docs;
-                        $scope.$apply();
                     })
                 });
 

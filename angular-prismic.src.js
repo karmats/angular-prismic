@@ -3,7 +3,7 @@ angular.module('prismic.io', [])
 
         var PrismicBackend = window.Prismic;
 
-        this.$get = function () {
+        this.$get = function ($http) {
 
             var _accessToken = '',
                 _setAccessToken = function setAccessToken(token) {
@@ -42,8 +42,17 @@ angular.module('prismic.io', [])
                 return params;
             };
 
+            var requestHandler = function (url, cb) {
+                console.log(Array.prototype.slice.call(arguments));
+
+                $http.get(url).then(function (response) {
+                    console.log(response);
+                    cb(response.data);
+                });
+            };
+
             var getApiHome = function(callback) {
-                PrismicBackend.Api(_APIEndpoint, callback, _accessToken);
+                PrismicBackend.Api(_APIEndpoint, callback, _accessToken, requestHandler);
             };
 
             var buildContext = function(ref, callback) {
