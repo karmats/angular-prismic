@@ -11,7 +11,13 @@
 
 <div class="demo" ng-controller="DemoCtrl">
 
-    {{message}}
+    {{status}}
+    <hr/>
+    <div ng-repeat="row in data">
+        <h1>Id: {{row.id}}</h1>
+        <p>Type: {{row.type}}</p>
+        <p>{{row|json}}</p>
+    </div>
 </div>
 
 
@@ -29,11 +35,13 @@
                 Prismic.setClientSecret('dcdb92123281f6cfae808132b4ac19a7');
             })
             .controller('DemoCtrl', function ($scope, Prismic) {
-                $scope.message = "Running";
+                $scope.status = "Loading...";
 
                 Prismic.get(function (ctx) {
                     ctx.api.form("everything").ref(ctx.ref).submit(function(docs) {
-                        console.log(docs);
+                        $scope.status = "Loaded";
+                        $scope.data = docs;
+                        $scope.$apply();
                     })
                 });
 
