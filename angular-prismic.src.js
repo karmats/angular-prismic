@@ -105,8 +105,10 @@ angular.module('prismic.io', [])
 
                 var deferred = $q.defer();
 
-                ctx.api.forms('everything').ref(ctx.ref).query(predicate).submit(function(results) {
-                    deferred.resolve(results);
+                withPrismic(function (ctx) {
+                    ctx.api.forms('everything').ref(ctx.ref).query(predicate).submit(function(results) {
+                        deferred.resolve(results);
+                    });
                 });
 
                 return deferred.promise;
