@@ -1,24 +1,5 @@
 'use strict';
 
-describe('PrismicBackend', function () {
-
-    var PrismicBackend, $window;
-
-    beforeEach(function () {
-        module('prismic.io', function (_PrismicBackend_) {
-            PrismicBackend = _PrismicBackend_;
-        });
-
-        inject(function (_$window_) {
-            $window = _$window_;
-        });
-    });
-
-    it('should proxy window.Prismic', function () {
-        expect(PrismicBackend).toBe($window.Prismic);
-    });
-});
-
 describe('Provider configuration: prismicProvider configuration', function () {
     var prismicProvider, prismic;
 

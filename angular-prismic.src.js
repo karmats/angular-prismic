@@ -1,8 +1,7 @@
 angular.module('prismic.io', [])
-    .constant('PrismicBackend', function () {
-        return window.Prismic;
-    })
-    .provider('Prismic', function(PrismicBackend){
+    .provider('Prismic', function(){
+
+        var PrismicBackend = window.Prismic;
 
         this.$get = function () {
 
