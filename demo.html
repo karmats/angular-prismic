@@ -34,11 +34,9 @@
             .controller('DemoCtrl', function ($scope, Prismic) {
                 $scope.status = "Loading...";
 
-                Prismic.get(function (ctx) {
-                    ctx.api.form("everything").ref(ctx.ref).submit(function(docs) {
-                        $scope.status = "Loaded";
-                        $scope.data = docs;
-                    })
+                Prismic.get().then(function (docs) {
+                    $scope.status = "Loaded";
+                    $scope.data = docs;
                 });
 
             });

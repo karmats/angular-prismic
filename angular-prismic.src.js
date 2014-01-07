@@ -1,5 +1,5 @@
 angular.module('prismic.io', [])
-    .factory('PrismicRequestHandler', function () {
+    .factory('PrismicRequestHandler', function ($http) {
         return function requestHandler(url, cb) {
             $http.get(url).then(function (response) {
                 cb(response.data);
@@ -8,7 +8,7 @@ angular.module('prismic.io', [])
     })
     .provider('Prismic', function(){
 
-        this.$get = function ($http, $window, PrismicRequestHandler) {
+        this.$get = function ($http, $window, PrismicRequestHandler, $q) {
 
             var requestHandler = PrismicRequestHandler;
             var PrismicBackend = $window.Prismic;
@@ -88,7 +88,29 @@ angular.module('prismic.io', [])
             var encodedHash = parseQS(window.location.hash.substring(1));
 
 
-            //////////////
+            var _get = function () {
+
+                var deferred = $q.defer();
+
+                withPrismic(function (ctx) {
+                    ctx.api.form("everything").ref(ctx.ref).submit(function(docs) {
+                        deferred.resolve(docs);
+                    })
+                });
+
+                return deferred.promise;
+            };
+
+            var _query = function (predicate) {
+
+                var deferred = $q.defer();
+
+                ctx.api.forms('everything').ref(ctx.ref).query(predicate).submit(function(results) {
+                    deferred.resolve(results);
+                });
+
+                return deferred.promise;
+            };
 
 
             return {
@@ -96,7 +118,8 @@ angular.module('prismic.io', [])
                 setClientId: _setClientId,
                 setClientSecret: _setClientSecret,
                 setAPIEndpoint: _setAPIEndpoint,
-                get: withPrismic
+                get: _get,
+                query: _query
             }
         }
     });
