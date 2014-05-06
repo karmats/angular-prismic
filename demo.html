@@ -13,6 +13,8 @@
 
     {{status}}
     <hr/>
+    <p>Query</p><input ng-model="predicate">
+    <button ng-click="queryPrismic()">Search</button>
     <div ng-repeat="row in data">
         <h1>Id: {{row.id}}</h1>
         <p>Type: {{row.type}}</p>
@@ -38,6 +40,15 @@
                     $scope.status = "Loaded";
                     $scope.data = docs;
                 });
+
+                // Query the prismic api with specific predicate
+                $scope.queryPrismic = function() {
+                    $scope.status = "Loading...";
+                    Prismic.query($scope.predicate).then(function (result) {
+                        $scope.status = "Loaded";
+                        $scope.data = result;
+                    });
+                }
 
             });
 

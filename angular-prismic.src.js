@@ -14,17 +14,17 @@ angular.module('prismic.io', [])
             var PrismicBackend = $window.Prismic;
 
             var _accessToken = '',
-                _setAccessToken = function setAccessToken(token) {
+                _setAccessToken = function (token) {
                     _accessToken = token;
                 },
 
                 _clientId = '',
-                _setClientId = function setClientId(clientId) {
+                _setClientId = function (clientId) {
                     _clientId = clientId;
                 },
 
                 _clientSecret = '',
-                _setClientSecret = function setClientSecret(clientSecret) {
+                _setClientSecret = function (clientSecret) {
                     _clientSecret = clientSecret;
                 },
 
@@ -55,10 +55,10 @@ angular.module('prismic.io', [])
                 // retrieve the API
                 getApiHome(function(api) {
                     var ctx = {
-                        ref: (ref || api.data.master.ref),
+                        ref: (ref || api.refs[0].ref),
                         api: api,
-                        maybeRef: (ref && ref != api.data.master.ref ? ref : ''),
-                        maybeRefParam: (ref && ref != api.data.master.ref ? '&ref=' + ref : ''),
+                        maybeRef: (ref && ref != api.refs[0].ref ? ref : ''),
+                        maybeRefParam: (ref && ref != api.refs[0].ref ? '&ref=' + ref : ''),
 
                         oauth: function() {
                             var token = _accessToken;
@@ -93,8 +93,9 @@ angular.module('prismic.io', [])
                 var deferred = $q.defer();
 
                 withPrismic(function (ctx) {
-                    ctx.api.form("everything").ref(ctx.ref).submit(function(docs) {
-                        deferred.resolve(docs);
+                    console.log(ctx)
+                    $http.get(ctx.api.forms.everything.action, { params: {'ref' : ctx.ref} }).then(function(docs) {
+                        deferred.resolve(docs.data.results);
                     })
                 });
 
@@ -106,8 +107,8 @@ angular.module('prismic.io', [])
                 var deferred = $q.defer();
 
                 withPrismic(function (ctx) {
-                    ctx.api.forms('everything').ref(ctx.ref).query(predicate).submit(function(results) {
-                        deferred.resolve(results);
+                    $http.get(ctx.api.forms.everything.action, { params: {'ref' : ctx.ref, 'q' : predicate} }).then(function(results) {
+                        deferred.resolve(results.data.results);
                     });
                 });
 
