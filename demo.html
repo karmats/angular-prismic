@@ -5,7 +5,7 @@
 
     <script src="bower_components/prismic.io/dist/prismic.io.js"></script>
     <script src="bower_components/angular/angular.js"></script>
-    <script src="angular-prismic.src.js"></script>
+    <script src="angular-prismic.min.js"></script>
 </head>
 <body>
 
@@ -38,7 +38,7 @@
 
                 Prismic.get().then(function (docs) {
                     $scope.status = "Loaded";
-                    $scope.data = docs;
+                    $scope.data = docs.results;
                 });
 
                 // Query the prismic api with specific predicate
@@ -46,7 +46,7 @@
                     $scope.status = "Loading...";
                     Prismic.query($scope.predicate).then(function (result) {
                         $scope.status = "Loaded";
-                        $scope.data = result;
+                        $scope.data = result.results;
                     });
                 }
 

@@ -1,9 +1,13 @@
 angular.module('prismic.io', [])
     .factory('PrismicRequestHandler', function ($http) {
         return function requestHandler(url, cb) {
-            $http.get(url).then(function (response) {
-                cb(response.data);
-            });
+            $http.get(url).then(
+                function (response) {
+                    cb(null, response.data);
+                },
+                function(error) {
+                    cb(error, null);
+                });
         };
     })
     .provider('Prismic', function(){
@@ -53,12 +57,12 @@ angular.module('prismic.io', [])
 
             var buildContext = function(ref, callback) {
                 // retrieve the API
-                getApiHome(function(api) {
+                getApiHome(function(error, api) {
                     var ctx = {
-                        ref: (ref || api.refs[0].ref),
+                        ref: (ref || api.data.master.ref),
                         api: api,
-                        maybeRef: (ref && ref != api.refs[0].ref ? ref : ''),
-                        maybeRefParam: (ref && ref != api.refs[0].ref ? '&ref=' + ref : ''),
+                        maybeRef: (ref && ref != api.data.master.ref ? ref : ''),
+                        maybeRefParam: (ref && ref != api.data.master.ref ? '&ref=' + ref : ''),
 
                         oauth: function() {
                             var token = _accessToken;
@@ -93,9 +97,8 @@ angular.module('prismic.io', [])
                 var deferred = $q.defer();
 
                 withPrismic(function (ctx) {
-                    console.log(ctx)
-                    $http.get(ctx.api.forms.everything.action, { params: {'ref' : ctx.ref} }).then(function(docs) {
-                        deferred.resolve(docs.data.results);
+                    ctx.api.form("everything").ref(ctx.ref).submit(function(error, docs) {
+                        deferred.resolve(docs);
                     })
                 });
 
@@ -107,8 +110,8 @@ angular.module('prismic.io', [])
                 var deferred = $q.defer();
 
                 withPrismic(function (ctx) {
-                    $http.get(ctx.api.forms.everything.action, { params: {'ref' : ctx.ref, 'q' : predicate} }).then(function(results) {
-                        deferred.resolve(results.data.results);
+                    ctx.api.form('everything').ref(ctx.ref).query(predicate).submit(function(error, results) {
+                        deferred.resolve(results);
                     });
                 });
 
